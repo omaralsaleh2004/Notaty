@@ -3,8 +3,8 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface INote extends Document {
   title: string;
   content: string;
-  createdDate: Date;
-  updatedDate: Date;
+  createdDate : Date,
+  updatedDate : Date
 }
 
 const noteSchema = new Schema<INote>({

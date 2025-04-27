@@ -43,7 +43,42 @@ router.get("/:id", async (req, res) => {
 
     res.status(200).send(note);
   } catch (err) {
-    console.log(err);
+    res.status(500).send("Someting went wrong !");
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { title, content } = req.body;
+    let note = await noteModel.findById(id);
+    if (!note) {
+      res.status(404).send("the note does not exist !");
+      return;
+    }
+
+    note.title = title;
+    note.content = content;
+    note.updatedDate = new Date();
+
+    await note.save();
+    res.status(200).send(note);
+  } catch (err) {
+    res.status(500).send("Someting went wrong !");
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    let note = await noteModel.findByIdAndDelete(id);
+    if (!note) {
+      res.status(404).send("the note does not exist !");
+      return;
+    }
+
+    res.status(200).send("note has been deleted !");
+  } catch (err) {
     res.status(500).send("Someting went wrong !");
   }
 });

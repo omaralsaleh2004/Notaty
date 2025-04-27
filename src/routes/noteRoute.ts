@@ -24,9 +24,17 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const notes = await noteModel.find();
-    res.status(200).send(notes);
+    const {title}: any = req.query;
+    if (title) {
+      const query = { title: { $regex:title, $options:"i"} };
+      const note = await noteModel.find(query);
+      res.status(200).send(note);
+    } else {
+      const notes = await noteModel.find();
+      res.status(200).send(notes);
+    }
   } catch (err) {
+    console.log(err)
     res.status(500).send("Someting went wrong !");
   }
 });

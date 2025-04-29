@@ -7,7 +7,7 @@ interface Props {
   setNotes: Dispatch<React.SetStateAction<Notes[]>>;
 }
 
-const Searchbar = ({ setNotes }: Props) => {
+const Searchbar = ({ setNotes, notes }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
@@ -92,12 +92,7 @@ const Searchbar = ({ setNotes }: Props) => {
         content: data.content,
         updatedDate: data.updatedDate,
       };
-      setNotes((prevNotes) => {
-        console.log("Previous Notes:", prevNotes);
-        const updatedNotes = [...prevNotes, newNote]; // Add the new note
-        console.log("Updated Notes:", updatedNotes); // Check if new note is added
-        return updatedNotes; // Return updated state
-      });
+      setNotes([...notes, newNote]);
       setShowForm(false);
     } catch (err) {
       console.log(err);

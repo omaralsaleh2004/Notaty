@@ -75,6 +75,71 @@ tr:hover td {
   background-color: lightblue;
 }
 
+.add-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: "flex";
+  flex-direction: "column";
+  gap: 10px;
+  height: 40%;
+  width: 40%;
+  gap: 20px;
+}
+
+#title-input {
+  width: 98%;
+}
+
+.content-input {
+  width: 97.5%;
+  height: 70%;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.addNote-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.save-btn {
+  font-size: 20px;
+}
+
+.cancel-btn {
+  font-size: 20px;
+}
+
+.del-edit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+}
+.del-edit-container button {
+  border: 1px solid rgb(165, 157, 157);
+  border-radius: 5px;
+}
+.del-edit-container button img {
+  width: 30px;
+}
 @keyframes new-row {
   0% {
     background-color: #ffd700;

@@ -1,13 +1,35 @@
 import { Dispatch, useEffect } from "react";
 import { Notes } from "../types/Notes";
 import { BASE_URL } from "../constants/BaseUrl";
-
+import deleteImage from "../assets/delete.png";
+import editImage from "../assets/edit.png";
 interface Props {
   notes: Notes[];
   setNotes: Dispatch<React.SetStateAction<Notes[]>>;
 }
 
-const NotesTable = ({ notes ,setNotes }: Props) => {
+const NotesTable = ({ notes, setNotes }: Props) => {
+  const deleteNote = async (id: string) => {
+    try {
+      const response = await fetch(`${BASE_URL}/notes/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        return;
+      }
+      setNotes(notes.filter((note) => note._id !== id));
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+  };
+
+  const editNote = (id) => {};
+
   useEffect(() => {
     try {
       const fetchData = async () => {
@@ -21,12 +43,11 @@ const NotesTable = ({ notes ,setNotes }: Props) => {
         setNotes(data);
       };
       fetchData();
-      
     } catch (err) {
       console.log(err);
       throw err;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <table id="notes-table">
@@ -50,17 +71,13 @@ const NotesTable = ({ notes ,setNotes }: Props) => {
             <td>{note.title}</td>
             <td>{note.content}</td>
             <td>{note.updatedDate.toString()}</td>
-            <td
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
-              {/* You can add a delete or edit button here */}
-              <button>Delete</button>
-              <button>Edit</button>
+            <td className="del-edit-container">
+              <button type="button" onClick={() => deleteNote(note._id)}>
+                <img src={deleteImage} alt="delete-btn" />
+              </button>
+              <button type="button" onClick={() => editNote(note._id)}>
+                <img src={editImage} alt="edit-btn" />
+              </button>
             </td>
           </tr>
         ))}

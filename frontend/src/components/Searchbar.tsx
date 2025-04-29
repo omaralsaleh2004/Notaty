@@ -88,6 +88,7 @@ const Searchbar = ({ setNotes, notes }: Props) => {
 
       const data = await response.json();
       const newNote = {
+        _id: data._id,
         title: data.title,
         content: data.content,
         updatedDate: data.updatedDate,
@@ -111,65 +112,28 @@ const Searchbar = ({ setNotes, notes }: Props) => {
       </button>
 
       {showForm && (
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "white",
-            padding: "20px",
-            border: "1px solid #ccc",
-            borderRadius: "8px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-            zIndex: 1000,
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            height: "35%",
-            width: "50%",
-          }}
-          className="add-form"
-        >
+        <div className="add-form">
           <input
+            id="title-input"
             type="text"
             ref={titleRef}
             placeholder="Title"
-            style={{ width: "98%" }}
           />
 
           <textarea
+            className="content-input"
             ref={contentRef}
             placeholder="Content"
             required
-            style={{
-              width: "97.5%",
-              height: "70%",
-              padding: "10px",
-              fontSize: "20px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              resize: "none",
-            }}
           />
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "10px",
-            }}
-          >
-            <button
-              type="submit"
-              onClick={addNote}
-              style={{ fontSize: "20px" }}
-            >
+          <div className="addNote-container">
+            <button className="save-btn" type="submit" onClick={addNote}>
               Save
             </button>
             <button
+              className="cancel-btn"
               type="button"
-              style={{ fontSize: "20px" }}
               onClick={() => setShowForm(false)}
             >
               Cancel

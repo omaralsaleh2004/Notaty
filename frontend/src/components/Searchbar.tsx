@@ -1,5 +1,5 @@
 import { BASE_URL } from "../constants/BaseUrl";
-import { Dispatch, useEffect, useRef, useState } from "react";
+import { Dispatch, useRef, useState } from "react";
 import { Notes } from "../types/Notes";
 
 interface Props {
@@ -7,13 +7,58 @@ interface Props {
   setNotes: Dispatch<React.SetStateAction<Notes[]>>;
 }
 
-const Searchbar = ({ setNotes, notes }: Props) => {
+const Searchbar = ({ setNotes }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
-
+  const searchRef = useRef<HTMLInputElement>(null);
   const showAdd = () => {
     setShowForm(true);
+  };
+
+  const searchNote = async () => {
+    try {
+      const title = searchRef.current?.value;
+      if (!title) {
+        try {
+          const fetchData = async () => {
+            const response = await fetch(`${BASE_URL}/notes`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            const data = await response.json();
+            setNotes(data);
+          };
+          fetchData();
+        } catch (err) {
+          console.log(err);
+          throw err;
+        }
+        return;
+      }
+      let url = `${BASE_URL}/notes`;
+      url += `/?title=${title}`;
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        return;
+      }
+
+      const data = await response.json();
+      setNotes(data);
+      if (searchRef.current) {
+        searchRef.current.value = "";
+      }
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
   };
 
   const addNote = async () => {
@@ -59,16 +104,16 @@ const Searchbar = ({ setNotes, notes }: Props) => {
       throw err;
     }
   };
-  useEffect(() => {
-    console.log("Notes state updated:", notes);
-  }, [notes]);
+
   return (
     <div className="search-bar">
       <button className="add-btn" onClick={showAdd}>
         Add
       </button>
-      <input placeholder="Search for note by title" />
-      <button className="search-btn">Search</button>
+      <input ref={searchRef} placeholder="Search for note by title" />
+      <button onClick={searchNote} className="search-btn">
+        Search
+      </button>
 
       {showForm && (
         <div

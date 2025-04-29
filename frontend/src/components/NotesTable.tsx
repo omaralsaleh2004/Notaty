@@ -26,6 +26,7 @@ const NotesTable = ({ notes ,setNotes }: Props) => {
       console.log(err);
       throw err;
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <table id="notes-table">

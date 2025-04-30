@@ -43,11 +43,11 @@ const NotesTable = ({ notes, setNotes }: Props) => {
     });
 
     const data = await response.json();
-
-    setNotes((prevNotes) =>
-      prevNotes.map((note) => (note._id === id ? { ...note, ...data } : note))
+    const updatedNotes = notes.map((note) =>
+      note._id === id ? { ...note, ...data } : note
     );
 
+    setNotes(updatedNotes);
     setEditingNoteId(null);
   };
 

@@ -103,16 +103,17 @@ const Searchbar = ({ setNotes, notes }: Props) => {
 
   return (
     <div className="search-bar">
-      <button className="add-btn" onClick={showAdd}>
+      <button className="btn" onClick={showAdd}>
         Add
       </button>
       <input ref={searchRef} placeholder="Search for note by title" />
-      <button onClick={searchNote} className="search-btn">
+      <button onClick={searchNote} className="btn">
         Search
       </button>
 
       {showForm && (
         <div className="add-form">
+          <h2>Add Note</h2>
           <input
             id="title-input"
             type="text"
@@ -128,11 +129,11 @@ const Searchbar = ({ setNotes, notes }: Props) => {
           />
 
           <div className="addNote-container">
-            <button className="save-btn" type="submit" onClick={addNote}>
+            <button className="btn" type="submit" onClick={addNote}>
               Save
             </button>
             <button
-              className="cancel-btn"
+              className="btn"
               type="button"
               onClick={() => setShowForm(false)}
             >

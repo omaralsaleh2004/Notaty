@@ -25,7 +25,7 @@ body {
   gap: 5px;
 }
 
-.search-bar .add-btn {
+.btn {
   color: #ffff;
   font-size: 20px;
   padding: 8px;
@@ -35,7 +35,7 @@ body {
   border-radius: 5px;
 }
 
-.search-bar .search-btn {
+.btn {
   color: #ffff;
   font-size: 20px;
   padding: 8px;
@@ -58,6 +58,21 @@ table {
   width: 100%;
   margin-top: 20px;
   font-size: 17px;
+}
+
+.col-1 {
+  width: 20%;
+}
+
+.col-2 {
+  width: 55%;
+}
+
+.col-3 {
+  width: 20%;
+}
+.col-4 {
+  width: 5%;
 }
 
 td,
@@ -92,7 +107,7 @@ tr:hover td {
   z-index: 1000;
   display: "flex";
   flex-direction: "column";
-  gap: 10px;
+  gap: 5px;
   height: 40%;
   width: 40%;
   gap: 20px;
@@ -100,6 +115,10 @@ tr:hover td {
 
 #title-input {
   width: 98%;
+  font-size: 20px;
+  padding: 10px;
+  border: 1px solid rgb(192, 188, 188);
+  border-radius: 8px;
 }
 
 .content-input {
@@ -118,13 +137,6 @@ tr:hover td {
   gap: 10px;
 }
 
-.save-btn {
-  font-size: 20px;
-}
-
-.cancel-btn {
-  font-size: 20px;
-}
 
 .del-edit-container {
   display: flex;
